@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans-4.0.xsd">
+
+
+    <!--使用该配置可以使用environmentProperties-->
+    <bean id="propertyConfigurer"
+          class="org.springframework.context.support.PropertySourcesPlaceholderConfigurer">
+        <property name="locations">
+            <list>
+                <value>classpath:config.properties</value>
+            </list>
+        </property>
+        <property name="localOverride" value="true"/>
+    </bean>
+
+
+    <bean id="cacheTemplate" class="com.yaojiafeng.cache.config.CacheConfig">
+        <property name="appName" value="${spring.application.name}"/>
+        <property name="isMemcachedEnable" value="false"/>
+        <property name="memcachedCacheServers" value="${memcached.host}:${memcached.port}"/>
+        <property name="memcachedCacheUsername" value="${memcached.username}"/>
+        <property name="memcachedCachePassword" value="${memcached.password}"/>
+        <property name="isLocalCacheEnable" value="false"/>
+        <property name="isRedisSentinelEnable" value="false"/>
+        <property name="redisMasterName" value="${redis.master.name}"/>
+        <property name="redisSentinelsHost">
+            <set>
+                <value>${redis.sentinel.host1}</value>
+                <value>${redis.sentinel.host2}</value>
+                <value>${redis.sentinel.host3}</value>
+                <value>${redis.sentinel.host4}</value>
+            </set>
+        </property>
+        <property name="redisPoolConfigMaxTotal" value="128"/>
+        <property name="isRedisEnable" value="true"/>
+        <property name="redisHost" value="${redis.hostname}"/>
+        <property name="redisPort" value="${redis.port}"/>
+        <property name="redisTimeout" value="${redis.timeout}"/>
+        <property name="redisPassword" value="${redis.password}"/>
+        <property name="redisDatabase" value="${redis.database}"/>
+    </bean>
+
+</beans>
